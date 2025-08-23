@@ -3,6 +3,12 @@ import React from 'react';
 import { Text } from 'react-native';
 import SectionWrapper from '../../src/presentation/components/SectionWrapper';
 
+jest.mock('../../src/presentation/components/Icon', () => {
+  const React = require('react');
+  const { Text } = require('react-native');
+  return ({ name }: { name: string }) => <Text>{name}</Text>;
+});
+
 jest.mock('../../src/presentation/components/Loading', () => {
   const React = require('react');
   const { Text } = require('react-native');
