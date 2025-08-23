@@ -24,6 +24,12 @@ interface HomeSectionsProps {
     products: any;
     smartphones: any;
   };
+  refetchFunctions: {
+    groceries: () => void;
+    discounts: () => void;
+    products: () => void;
+    smartphones: () => void;
+  };
 }
 
 export default function HomeSections({
@@ -34,20 +40,23 @@ export default function HomeSections({
   onPressProduct,
   loadingStates,
   errorStates,
+  refetchFunctions,
 }: HomeSectionsProps) {
   return (
     <View style={styles.container}>
       <SectionWrapper
         title="Mercado"
         isLoading={loadingStates.groceries}
-        error={errorStates.groceries}>
+        error={errorStates.groceries}
+        refetch={refetchFunctions.groceries}>
         <ProductsGrid products={groceries} onPress={onPressProduct} />
       </SectionWrapper>
 
       <SectionWrapper
         title="Descuentos"
         isLoading={loadingStates.discounts}
-        error={errorStates.discounts}>
+        error={errorStates.discounts}
+        refetch={refetchFunctions.discounts}>
         <HorizontalProductsList
           products={discountProducts}
           onPress={onPressProduct}
@@ -55,16 +64,18 @@ export default function HomeSections({
       </SectionWrapper>
 
       <SectionWrapper
-        title="Lo nuevo"
+        title="De todo un poco"
         isLoading={loadingStates.products}
-        error={errorStates.products}>
+        error={errorStates.products}
+        refetch={refetchFunctions.products}>
         <ProductCarousel products={products} onPress={onPressProduct} />
       </SectionWrapper>
 
       <SectionWrapper
         title="Smartphones"
         isLoading={loadingStates.smartphones}
-        error={errorStates.smartphones}>
+        error={errorStates.smartphones}
+        refetch={refetchFunctions.smartphones}>
         <HorizontalProductsList
           products={smartphones}
           onPress={onPressProduct}

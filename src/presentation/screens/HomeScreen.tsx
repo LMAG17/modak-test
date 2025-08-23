@@ -83,6 +83,12 @@ export default function HomeScreen() {
               products: productsQuery.isError,
               smartphones: smartphonesQuery.isError,
             }}
+            refetchFunctions={{
+              groceries: groceriesQuery.refetch,
+              discounts: discountQuery.refetch,
+              products: productsQuery.refetch,
+              smartphones: smartphonesQuery.refetch,
+            }}
           />
         </ScrollView>
       )}
