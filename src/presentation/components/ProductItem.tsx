@@ -58,10 +58,15 @@ const styles = StyleSheet.create({
     gap: 16,
     backgroundColor: '#fff',
     shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
     marginRight: 16,
+    paddingVertical: 12,
   },
   image: {
     width: 80,
@@ -78,10 +83,10 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   text: {
+    height: 16,
     flex: 1,
     fontSize: 16,
     fontWeight: '600',
-    verticalAlign: 'bottom',
   },
   brand: {
     flex: 1,

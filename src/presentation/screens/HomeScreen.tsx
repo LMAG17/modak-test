@@ -99,7 +99,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#FFF',
   },
   scrollView: {
     flexGrow: 1,

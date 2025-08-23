@@ -17,6 +17,7 @@ export default function CategoriesList({
   return (
     <View style={styles.container}>
       <FlatList
+        showsHorizontalScrollIndicator={false}
         horizontal
         data={categories}
         contentContainerStyle={styles.list}
@@ -34,6 +35,7 @@ export default function CategoriesList({
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#FFF',
     paddingVertical: 8,
     gap: 8,
   },
