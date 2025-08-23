@@ -1,97 +1,98 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Getting Started
+# Prueba Técnica Modak - Aplicación de Productos
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Descripción / Description
 
-## Step 1: Start Metro
+**Español:**
+Esta es una aplicación móvil desarrollada con React Native CLI que consume la API de DummyJSON - Products API para mostrar productos. Permite buscar, filtrar por categorías y ordenar por precio y calificación, ver detalles de cada producto y agregar recordatorios de compra al calendario del dispositivo. Además, utiliza notificaciones locales mediante Notifee. La aplicación implementa un módulo nativo tanto en Android como iOS para la integración con el calendario.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+**English:**
+This is a mobile application developed with React Native CLI that consumes the DummyJSON - Products API to display products. It allows searching, filtering by categories and sort by price and rate, viewing detailed product information, and adding purchase reminders to the device calendar. Additionally, it uses local notifications via Notifee and includes a native module for both Android and iOS to integrate with the calendar.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+---
 
-```sh
-# Using npm
-npm start
+## Arquitectura / Architecture
 
-# OR using Yarn
-yarn start
-```
+**Español:**
+La aplicación sigue una arquitectura basada en **Domain Driven Design (DDD) y Clean Architecture**, organizada en capas:
 
-## Step 2: Build and run your app
+* **data**: API, mappers y fuentes de datos.
+* **domain**: entidades y casos de uso.
+* **presentation**: componentes de UI, hooks, navegación y módulos nativos.
+* **notifications**: lógica de notificaciones locales.
+* **screens**: pantallas de la aplicación.
+* **store**: Redux Toolkit Query para manejo de estado y consultas.
+* **utils**: funciones auxiliares.
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+**English:**
+The app follows a **Domain Driven Design (DDD) and Clean Architecture** approach, organized in layers:
 
-### Android
+* **data**: API, mappers, and data sources.
+* **domain**: entities and use cases.
+* **presentation**: UI components, hooks, navigation, and native modules.
+* **notifications**: local notification logic.
+* **screens**: app screens.
+* **store**: Redux Toolkit Query for state management and queries.
+* **utils**: helper functions.
 
-```sh
-# Using npm
-npm run android
+---
 
-# OR using Yarn
-yarn android
-```
+## Instalación / Installation
 
-### iOS
+**Español:**
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+1. Clonar el repositorio.
+2. Ejecutar `yarn` para instalar dependencias.
+3. Si es iOS, ejecutar `cd ios && pod install`.
+4. Ejecutar `yarn ios` o `yarn android` según la plataforma.
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+**English:**
 
-```sh
-bundle install
-```
+1. Clone the repository.
+2. Run `yarn` to install dependencies.
+3. For iOS, run `cd ios && pod install`.
+4. Run `yarn ios` or `yarn android` depending on your platform.
 
-Then, and every time you update your native dependencies, run:
+---
 
-```sh
-bundle exec pod install
-```
+## Flujo de la Aplicación / App Flow
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+**Español:**
 
-```sh
-# Using npm
-npm run ios
+1. En la pantalla principal (`HomeScreen`) se muestran varios productos.
+2. Se puede buscar y filtrar por categoría.
+3. En la pantalla de detalle (`ProductDetailScreen`) se muestra información relevante del producto.
+4. Se puede agregar un recordatorio en el calendario del dispositivo para comprar el producto.
+5. Se envían notificaciones locales según recordatorios.
 
-# OR using Yarn
-yarn ios
-```
+**English:**
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+1. On the main screen (`HomeScreen`) multiple products are displayed.
+2. Users can search and filter by category.
+3. On the product detail screen (`ProductDetailScreen`) relevant product information is shown.
+4. Users can add a reminder to the device calendar to purchase the product.
+5. Local notifications are sent according to reminders.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+---
 
-## Step 3: Modify your app
+## Pruebas / Testing
 
-Now that you have successfully run the app, let's make changes!
+**Español:**
+Se realizaron pruebas unitarias y de integración hasta alcanzar **100% de cobertura**, asegurando el correcto funcionamiento de los módulos críticos como: manejo de productos, casos de uso y notificaciones.
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+**English:**
+Unit and integration tests were performed until **100% coverage** was achieved, ensuring the correct functionality of critical modules such as product handling, use cases, and notifications.
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+---
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+## Tecnologías / Technologies
 
-## Congratulations! :tada:
+* React Native CLI
+* TypeScript
+* Redux Toolkit Query
+* Notifee (notificaciones locales)
+* Módulos nativos Android e iOS
+* DummyJSON - Products API
 
-You've successfully run and modified your React Native App. :partying_face:
+---
 
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
