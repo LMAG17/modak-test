@@ -83,5 +83,11 @@
 	<string>Necesitamos acceder al calendario para agregar eventos.</string>
 	<key>NSCalendarsFullAccessUsageDescription</key>
 	<string>Necesitamos acceso completo al calendario para agregar eventos.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
+	<key>NSUserNotificationUsageDescription</key>
+	<string>Necesitamos enviar recordatorios para tus eventos importantes.</string>
 </dict>
 </plist>

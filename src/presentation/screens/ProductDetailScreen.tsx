@@ -12,14 +12,16 @@ import {
   useGetProductByIdQuery,
   useLazyGetProductsByCategoryQuery,
 } from '../../data/api/productApi';
-import { addProductReminder } from '../../domain/usecases/addProductReminder';
+import { triggerNotification } from '../../domain/usecases/triggerNotification';
 import DetailLoading from '../components/DetailLoading';
 import Icon from '../components/Icon';
+import ProductDetailBody from '../components/ProductDetailBody';
 import ProductDetailDiscountBadge from '../components/ProductDetailDiscountBadge';
 import ProductDetailHeader from '../components/ProductDetailHeader';
 import { HorizontalProductsList } from '../components/ProductsList';
 import ReviewsList from '../components/ReviewsList';
 import SectionWrapper from '../components/SectionWrapper';
+import { addProductReminder } from '../nativeModules/addProductReminder';
 import {
   RootStackParamList,
   useAppNavigation,
@@ -63,11 +65,23 @@ const ProductDetailScreen = () => {
     [navigation],
   );
 
-  const handleReminder = () =>
-    addProductReminder(
-      `Recordatorio para comprar ${product?.title}`,
-      new Date(Date.now() + 1 * 60 * 60 * 1000),
-    );
+  const handleReminder = async () => {
+    try {
+      await addProductReminder(
+        `Recordatorio para comprar ${product?.title}`,
+        new Date(Date.now() + 1 * 60 * 60 * 1000),
+      );
+      triggerNotification({
+        title: `Recordatorio para comprar ${product?.title}`,
+        body: 'Se ha creado un evento en tu calendario',
+      });
+    } catch (error) {
+      triggerNotification({
+        title: `Error al crear recordatorio`,
+        body: 'No se pudo crear evento en tu calendario',
+      });
+    }
+  };
 
   if (isLoading) return <DetailLoading />;
   if (error) return <Text style={styles.error}>Error loading product</Text>;
@@ -77,7 +91,7 @@ const ProductDetailScreen = () => {
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <ProductDetailHeader product={product} />
-
+        <ProductDetailBody product={product} />
         <ProductDetailDiscountBadge product={product} />
 
         <SectionWrapper title="Opiniones">

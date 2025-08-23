@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   infoContainer: {
     flex: 1,
     gap: 12,
-    marginTop: 12,
+    marginVertical: 12,
   },
   brand: {
     fontSize: 16,

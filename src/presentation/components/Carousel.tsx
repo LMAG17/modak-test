@@ -6,7 +6,7 @@ import Carousel, {
   ICarouselInstance,
   Pagination,
 } from 'react-native-reanimated-carousel';
-import { groupByChunks } from '../../domain/usecases/groupByChunks';
+import { groupByChunks } from '../utils/groupByChunks';
 import { useOrientation } from '../hooks/useOrientation';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
