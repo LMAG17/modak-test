@@ -110,21 +110,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 12,
   },
-  radioCircle: {
-    height: 20,
-    width: 20,
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: '#007AFF',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  radioInner: {
-    height: 10,
-    width: 10,
-    borderRadius: 5,
-    backgroundColor: '#007AFF',
-  },
   actions: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
