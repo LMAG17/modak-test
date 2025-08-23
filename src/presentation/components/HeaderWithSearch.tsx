@@ -5,18 +5,12 @@ import Icon from './Icon';
 type Props = {
   onSearch: (query: string) => void;
   isLoading: boolean;
-  error?: boolean;
 };
 
-export default function HeaderWithSearch({
-  onSearch,
-  isLoading,
-  error,
-}: Props) {
+export default function HeaderWithSearch({ onSearch, isLoading }: Props) {
   return (
     <View style={styles.header}>
       <Text style={styles.title}>Modak Test</Text>
-
       <View style={styles.searchContainer}>
         <Icon
           family="Ionicons"

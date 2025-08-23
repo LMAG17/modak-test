@@ -6,9 +6,14 @@ import CategoryItem from './CategoryItem';
 type Props = {
   categories: Category[] | undefined;
   onPressCategory?: (slug: string) => void;
+  selectedCategory: string | null;
 };
 
-export default function CategoriesList({ categories, onPressCategory }: Props) {
+export default function CategoriesList({
+  categories,
+  onPressCategory,
+  selectedCategory,
+}: Props) {
   return (
     <View style={styles.container}>
       <FlatList
@@ -16,7 +21,11 @@ export default function CategoriesList({ categories, onPressCategory }: Props) {
         data={categories}
         contentContainerStyle={styles.list}
         renderItem={({ item }) => (
-          <CategoryItem category={item} onPress={onPressCategory} />
+          <CategoryItem
+            category={item}
+            onPress={onPressCategory}
+            isSelected={selectedCategory === item.slug}
+          />
         )}
       />
     </View>

@@ -18,19 +18,25 @@ jest.mock('../../src/presentation/components/CategoryItem', () => {
 });
 
 describe('CategoriesList', () => {
+  const selectedCategory = 'tech';
   const mockCategories: Category[] = [
     { url: 'https://example.com/tech', name: 'Tech', slug: 'tech' },
     { url: 'https://example.com/sports', name: 'Sports', slug: 'sports' },
   ] as Category[];
 
   it('renders correctly', () => {
-    const { toJSON } = render(<CategoriesList categories={[]} />);
+    const { toJSON } = render(
+      <CategoriesList categories={[]} selectedCategory={selectedCategory} />,
+    );
     expect(toJSON()).toMatchSnapshot();
   });
 
   it('renders the list of categories', () => {
     const { getByText } = render(
-      <CategoriesList categories={mockCategories} />,
+      <CategoriesList
+        categories={mockCategories}
+        selectedCategory={selectedCategory}
+      />,
     );
     expect(getByText('Tech')).toBeTruthy();
     expect(getByText('Sports')).toBeTruthy();
@@ -40,6 +46,7 @@ describe('CategoriesList', () => {
     const mockOnPress = jest.fn();
     const { getByTestId } = render(
       <CategoriesList
+        selectedCategory={selectedCategory}
         categories={mockCategories}
         onPressCategory={mockOnPress}
       />,

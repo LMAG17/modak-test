@@ -7,8 +7,9 @@ import Carousel, {
   Pagination,
 } from 'react-native-reanimated-carousel';
 import { groupByChunks } from '../../domain/usecases/groupByChunks';
+import { useOrientation } from '../hooks/useOrientation';
 
-const { width: screenWidth } = Dimensions.get('window');
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 type Props = {
   autoPlay?: boolean;
@@ -26,6 +27,7 @@ export function CustomCarousel({
   autoPlay,
   loop,
 }: Props) {
+  const orientation = useOrientation();
   if (!Array.isArray(data) || data.length === 0) {
     return null;
   }
@@ -48,7 +50,7 @@ export function CustomCarousel({
         autoPlay={autoPlay}
         loop={isDisabled ? false : loop}
         onProgressChange={progress}
-        width={screenWidth}
+        width={orientation === 'portrait' ? screenWidth : screenHeight}
         height={300}
         data={productChunks}
         scrollAnimationDuration={800}

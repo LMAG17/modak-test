@@ -1,152 +1,97 @@
-import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import {
-  useGetCategoriesQuery,
-  useGetDiscountProductsQuery,
-  useGetProductsByCategoryQuery,
-  useGetProductsQuery,
-  useLazyGetProductsByCategoryQuery,
-  useLazyGetSearchProductsQuery,
-} from '../../data/api/productApi';
+import React, { useCallback, useState } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import CategoriesList from '../components/CategoriesList';
+import FilterModal from '../components/FilterModal';
 import HeaderWithSearch from '../components/HeaderWithSearch';
-import ProductCarousel from '../components/ProductCarousel';
-import ProductsGrid from '../components/ProductsGrid';
-import { HorizontalProductsList } from '../components/ProductsList';
-import SectionWrapper from '../components/SectionWrapper';
+import HomeLoading from '../components/HomeLoading';
+import HomeSections from '../components/HomeSections';
+import SearchResultsSection from '../components/SearchResultsSection';
+import useHomeData from '../hooks/useHomeData';
 import { useAppNavigation } from '../navigation/AppNavigator';
-import ProductResultsList from '../components/ProductResultsList';
 
 export default function HomeScreen() {
-  const [search, setSearch] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
   const navigation = useAppNavigation();
   const {
-    data: products,
-    isLoading: isLoadingProducts,
-    isError: errorProducts,
-  } = useGetProductsQuery();
-  const {
-    data: categories,
-    isLoading: isLoadingCategories,
-    isError: errorCategories,
-  } = useGetCategoriesQuery();
-  const {
-    data: discountProducts,
-    isLoading: isLoadingDiscountProducts,
-    isError: errorDiscountProducts,
-  } = useGetDiscountProductsQuery();
-  const {
-    data: smartPhonesData,
-    isLoading: isLoadingSmartPhones,
-    isError: errorSmartPhones,
-  } = useGetProductsByCategoryQuery('smartphones');
-  const {
-    data: groceriesProductsData,
-    isLoading: isLoadingGroceriesProducts,
-    isError: errorGroceriesProducts,
-  } = useGetProductsByCategoryQuery('groceries');
+    selectedCategory,
+    search,
+    sort,
+    setSort,
+    onSelectCategory,
+    onSearch,
+    getSortedProducts,
+    isLoadingAll,
+    productsQuery,
+    categoriesQuery,
+    discountQuery,
+    smartphonesQuery,
+    groceriesQuery,
+    searchQuery,
+    categoryQuery,
+  } = useHomeData();
 
-  const [
-    getSearchProducts,
-    {
-      data: searchProducts,
-      isLoading: isLoadingSearchProducts,
-      isError: errorSearchProducts,
-    },
-  ] = useLazyGetSearchProductsQuery();
+  const onPressProduct = useCallback(
+    (id: number) => navigation.navigate('Detail', { id }),
+    [navigation],
+  );
 
-  const [
-    getProductsByCategory,
-    {
-      data: productsByCategory,
-      isLoading: isLoadingProductsByCategory,
-      isError: errorProductsByCategory,
-    },
-  ] = useLazyGetProductsByCategoryQuery();
+  const onFilterPress = useCallback(() => setModalVisible(true), []);
 
-  const onPressProduct = (id: number) => {
-    navigation.navigate('Detail', { id });
-  };
+  if (isLoadingAll) return <HomeLoading />;
 
-  const onPressCategory = (slug: string) => {
-    getProductsByCategory(slug);
-  };
-
-  const handleSearch = (query: string) => {
-    setSearch(query);
-    getSearchProducts(query);
-  };
+  const hasSearchResults = Boolean(
+    search ? searchQuery.data : selectedCategory,
+  );
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <HeaderWithSearch
-        onSearch={handleSearch}
-        isLoading={isLoadingSearchProducts}
-        error={errorSearchProducts}
+      <HeaderWithSearch onSearch={onSearch} isLoading={searchQuery.isLoading} />
+      <CategoriesList
+        categories={categoriesQuery.data}
+        onPressCategory={onSelectCategory}
+        selectedCategory={selectedCategory}
       />
 
-      {!!search || !!productsByCategory ? (
-        <SectionWrapper
-          title="Resultados de búsqueda"
-          isLoading={isLoadingSearchProducts ?? isLoadingProductsByCategory}
-          error={errorSearchProducts ?? errorProductsByCategory}
-          style={styles.resultsContainer}>
-          <ProductResultsList
-            products={searchProducts ?? productsByCategory}
-            onPress={onPressProduct}
-          />
-        </SectionWrapper>
+      {hasSearchResults ? (
+        <SearchResultsSection
+          products={getSortedProducts(
+            search ? searchQuery.data : categoryQuery.data,
+          )}
+          onPressProduct={onPressProduct}
+          isLoading={searchQuery.isLoading || categoryQuery.isLoading}
+          error={searchQuery.isError || categoryQuery.isError}
+          onSortPress={onFilterPress}
+          sort={sort}
+        />
       ) : (
-        <>
-          <ScrollView contentContainerStyle={styles.scrollView}>
-            <View style={styles.container}>
-              <SectionWrapper
-                title="Categorias"
-                isLoading={isLoadingCategories}
-                error={errorCategories}>
-                <CategoriesList
-                  categories={categories}
-                  onPressCategory={onPressCategory}
-                />
-              </SectionWrapper>
-              <SectionWrapper
-                title="Mercado"
-                isLoading={isLoadingGroceriesProducts}
-                error={errorGroceriesProducts}>
-                <ProductsGrid
-                  products={groceriesProductsData}
-                  onPress={onPressProduct}
-                />
-              </SectionWrapper>
-              <SectionWrapper
-                title="Descuentos"
-                isLoading={isLoadingDiscountProducts}
-                error={errorDiscountProducts}>
-                <HorizontalProductsList
-                  products={discountProducts}
-                  onPress={onPressProduct}
-                />
-              </SectionWrapper>
-              <SectionWrapper
-                title="Lo nuevo"
-                isLoading={isLoadingProducts}
-                error={errorProducts}>
-                <ProductCarousel products={products} onPress={onPressProduct} />
-              </SectionWrapper>
-              <SectionWrapper
-                title="Smartphones"
-                isLoading={isLoadingSmartPhones}
-                error={errorSmartPhones}>
-                <HorizontalProductsList
-                  products={smartPhonesData}
-                  onPress={onPressProduct}
-                />
-              </SectionWrapper>
-            </View>
-          </ScrollView>
-        </>
+        <ScrollView contentContainerStyle={styles.scrollView}>
+          <HomeSections
+            products={productsQuery.data}
+            groceries={groceriesQuery.data}
+            discountProducts={discountQuery.data}
+            smartphones={smartphonesQuery.data}
+            onPressProduct={onPressProduct}
+            loadingStates={{
+              groceries: groceriesQuery.isLoading,
+              discounts: discountQuery.isLoading,
+              products: productsQuery.isLoading,
+              smartphones: smartphonesQuery.isLoading,
+            }}
+            errorStates={{
+              groceries: groceriesQuery.isError,
+              discounts: discountQuery.isError,
+              products: productsQuery.isError,
+              smartphones: smartphonesQuery.isError,
+            }}
+          />
+        </ScrollView>
       )}
+
+      <FilterModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        onSort={setSort}
+      />
     </SafeAreaView>
   );
 }
@@ -159,15 +104,5 @@ const styles = StyleSheet.create({
   scrollView: {
     flexGrow: 1,
     gap: 16,
-  },
-  resultsContainer: {
-    flex: 1,
-    paddingHorizontal: 16,
-    backgroundColor: '#fff',
-  },
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
   },
 });

@@ -5,11 +5,14 @@ import { Category } from '../../domain/entities/Category';
 type Props = {
   category: Category;
   onPress?: (slug: string) => void;
+  isSelected?: boolean;
 };
 
-export default function CategoryItem({ category, onPress }: Props) {
+export default function CategoryItem({ category, onPress, isSelected }: Props) {
   return (
-    <TouchableOpacity style={styles.container} onPress={() => onPress?.(category.slug)}>
+    <TouchableOpacity
+      style={[styles.container, isSelected && styles.selectedContainer]}
+      onPress={() => onPress?.(category.slug)}>
       <Text numberOfLines={1} style={styles.title}>
         {category.name}
       </Text>
@@ -28,6 +31,10 @@ const styles = StyleSheet.create({
     borderColor: '#F5F6F5',
     borderRadius: 32,
     alignSelf: 'baseline',
+  },
+  selectedContainer: {
+    backgroundColor: '#E0E0E0',
+    borderColor: '#C0C0C0',
   },
   title: {
     fontSize: 14,
