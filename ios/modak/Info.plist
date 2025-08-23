@@ -79,5 +79,9 @@
 		</array>
 	</dict>
 	</array>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Necesitamos acceder al calendario para agregar eventos.</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Necesitamos acceso completo al calendario para agregar eventos.</string>
 </dict>
 </plist>

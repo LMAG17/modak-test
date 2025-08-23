@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Product } from '../../domain/entities/Product';
-import Icon from './Icon';
 
 interface Props {
   product: Product;
@@ -16,7 +15,6 @@ const ProductCard: React.FC<Props> = ({ product, onPress }) => {
       onPress={onPress}
       style={styles.card}>
       <View style={styles.imageHeader}>
-        <Icon family="Ionicons" name="heart-outline" color="#404040" />
         {!!discount && (
           <View style={styles.discountBadge}>
             <Text style={styles.discountText}>{discount}% OFF</Text>
@@ -34,9 +32,6 @@ const ProductCard: React.FC<Props> = ({ product, onPress }) => {
         </View>
         <View style={styles.priceContainer}>
           <Text style={styles.price}>${product.price}</Text>
-          <View style={styles.iconContainer}>
-            <Icon family="Entypo" name="plus" color="#FFF" />
-          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -63,7 +58,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   imageHeader: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -100,7 +95,7 @@ const styles = StyleSheet.create({
   priceContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     backgroundColor: '#F5F5F5',
     paddingLeft: 8,
     borderRadius: 32,
@@ -111,6 +106,7 @@ const styles = StyleSheet.create({
     color: '#000',
     paddingVertical: 8,
     paddingRight: 8,
+    textAlign: 'center',
   },
   iconContainer: {
     padding: 4,

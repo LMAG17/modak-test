@@ -3,12 +3,6 @@ import React from 'react';
 import { Product } from '../../src/domain/entities/Product';
 import ProductCard from '../../src/presentation/components/ProductCard';
 
-jest.mock('../../src/presentation/components/Icon', () => {
-  const React = require('react');
-  const { Text } = require('react-native');
-  return ({ name }: { name: string }) => <Text>{name}</Text>;
-});
-
 describe('ProductCard', () => {
   const product: Product = {
     id: 1,

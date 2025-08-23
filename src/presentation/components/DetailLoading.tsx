@@ -2,16 +2,16 @@ import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import LottieView from 'lottie-react-native';
 
-export default function HomeLoading() {
+export default function DetailLoading() {
   return (
     <View style={styles.container}>
       <LottieView
         style={styles.animation}
-        source={require('../../constants/lottie/loading.json')}
+        source={require('../../constants/lottie/loadingProduct.json')}
         autoPlay
         loop
       />
-      <Text style={styles.title}>Cargando productos y categorías...</Text>
+      <Text style={styles.title}>Cargando detalles del producto...</Text>
     </View>
   );
 }

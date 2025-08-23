@@ -1,11 +1,20 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
 import React, { memo, useCallback, useEffect, useLayoutEffect } from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {
   useGetProductByIdQuery,
   useLazyGetProductsByCategoryQuery,
 } from '../../data/api/productApi';
-import Loading from '../components/Loading';
+import { addProductReminder } from '../../domain/usecases/addProductReminder';
+import DetailLoading from '../components/DetailLoading';
+import Icon from '../components/Icon';
 import ProductDetailDiscountBadge from '../components/ProductDetailDiscountBadge';
 import ProductDetailHeader from '../components/ProductDetailHeader';
 import { HorizontalProductsList } from '../components/ProductsList';
@@ -54,36 +63,57 @@ const ProductDetailScreen = () => {
     [navigation],
   );
 
-  if (isLoading) return <Loading />;
+  const handleReminder = () =>
+    addProductReminder(
+      `Recordatorio para comprar ${product?.title}`,
+      new Date(Date.now() + 1 * 60 * 60 * 1000),
+    );
+
+  if (isLoading) return <DetailLoading />;
   if (error) return <Text style={styles.error}>Error loading product</Text>;
   if (!product) return <Text style={styles.error}>No product found</Text>;
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollView}>
-      <ProductDetailHeader product={product} />
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <ProductDetailHeader product={product} />
 
-      <ProductDetailDiscountBadge product={product} />
+        <ProductDetailDiscountBadge product={product} />
 
-      <SectionWrapper title="Opiniones">
-        <ReviewsList product={product} />
-      </SectionWrapper>
+        <SectionWrapper title="Opiniones">
+          <ReviewsList product={product} />
+        </SectionWrapper>
 
-      <SectionWrapper
-        title="Productos similares"
-        isLoading={isLoadingRelatedProducts}
-        error={errorRelatedProducts}>
-        <HorizontalProductsList
-          products={relatedProducts}
-          onPress={handlePressProduct}
-        />
-      </SectionWrapper>
-    </ScrollView>
+        <SectionWrapper
+          title="Productos similares"
+          isLoading={isLoadingRelatedProducts}
+          error={errorRelatedProducts}>
+          <HorizontalProductsList
+            products={relatedProducts}
+            onPress={handlePressProduct}
+          />
+        </SectionWrapper>
+      </ScrollView>
+      <View style={styles.reminderContainer}>
+        <Text style={styles.reminderText}>
+          ¿Quieres que te recordemos comprar este producto en{' '}
+          <Text style={styles.boldText}>una hora</Text>?
+        </Text>
+        <TouchableOpacity
+          style={styles.reminderButton}
+          onPress={handleReminder}>
+          <Icon family="Ionicons" name="alarm-outline" size={24} />
+          <Text style={styles.reminderText}>Recordarme</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
 
 export default memo(ProductDetailScreen);
 
 const styles = StyleSheet.create({
+  safeArea: { flex: 1, backgroundColor: '#FFF' },
   scrollView: {
     flexGrow: 1,
     backgroundColor: '#FFF',
@@ -95,5 +125,47 @@ const styles = StyleSheet.create({
     marginTop: 50,
     fontSize: 16,
     color: 'red',
+  },
+  reminderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    padding: 16,
+    backgroundColor: '#FFF',
+    paddingBottom: 16,
+    borderTopRightRadius: 32,
+    borderTopLeftRadius: 32,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: -2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 16,
+    elevation: 2,
+    borderWidth: 1,
+    borderColor: '#eee',
+  },
+  reminderText: {
+    flex: 1,
+
+    fontSize: 16,
+    color: '#333',
+  },
+  boldText: {
+    fontWeight: 'bold',
+  },
+  reminderButton: {
+    maxWidth: '40%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 8,
+    borderRadius: 8,
+    backgroundColor: '#F0F0F0',
+    gap: 8,
+  },
+  reminderButtonText: {
+    fontSize: 16,
+    color: '#007BFF',
   },
 });
