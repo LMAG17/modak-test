@@ -4,6 +4,7 @@ exports[`CategoriesList renders correctly 1`] = `
 <View
   style={
     {
+      "backgroundColor": "#FFF",
       "gap": 8,
       "paddingVertical": 8,
     }
@@ -31,6 +32,7 @@ exports[`CategoriesList renders correctly 1`] = `
     removeClippedSubviews={false}
     renderItem={[Function]}
     scrollEventThrottle={0.0001}
+    showsHorizontalScrollIndicator={false}
     stickyHeaderIndices={[]}
     viewabilityConfigCallbackPairs={[]}
   >
