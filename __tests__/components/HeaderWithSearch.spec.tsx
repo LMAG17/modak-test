@@ -1,8 +1,8 @@
+import { fireEvent, render, screen } from '@testing-library/react-native';
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react-native';
-import HeaderWithSearch from './HeaderWithSearch';
+import HeaderWithSearch from '../../src/presentation/components/HeaderWithSearch';
 
-jest.mock('./Icon', () => {
+jest.mock('../../src/presentation/components/Icon', () => {
   const React = require('react');
   const { Text } = require('react-native');
   return ({ name }: { name: string }) => <Text>{name}</Text>;

@@ -1,9 +1,9 @@
 import { fireEvent, render } from '@testing-library/react-native';
 import React from 'react';
-import { Category } from '../../domain/entities/Category';
-import CategoriesList from './CategoriesList';
+import { Category } from '../../src/domain/entities/Category';
+import CategoriesList from '../../src/presentation/components/CategoriesList';
 
-jest.mock('./CategoryItem', () => {
+jest.mock('../../src/presentation/components/CategoryItem', () => {
   const React = require('react');
   const { Button } = require('react-native');
   return ({ category, onPress }: any) => {

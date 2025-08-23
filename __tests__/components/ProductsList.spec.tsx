@@ -1,9 +1,9 @@
+import { fireEvent, render } from '@testing-library/react-native';
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
-import { HorizontalProductsList } from './ProductsList';
-import { Product } from './../../domain/entities/Product';
+import { Product } from '../../src/domain/entities/Product';
+import { HorizontalProductsList } from '../../src/presentation/components/ProductsList';
 
-jest.mock('./Icon', () => {
+jest.mock('../../src/presentation/components/Icon', () => {
   const React = require('react');
   const { Text } = require('react-native');
   return ({ name }: { name: string }) => <Text>{name}</Text>;

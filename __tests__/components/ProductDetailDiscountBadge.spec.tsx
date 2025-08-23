@@ -1,7 +1,7 @@
-import React from 'react';
 import { render } from '@testing-library/react-native';
-import ProductDetailDiscountBadge from './ProductDetailDiscountBadge';
-import { Product } from '../../domain/entities/Product';
+import React from 'react';
+import { Product } from '../../src/domain/entities/Product';
+import ProductDetailDiscountBadge from '../../src/presentation/components/ProductDetailDiscountBadge';
 
 const mockProduct: Product = {
   id: 1,

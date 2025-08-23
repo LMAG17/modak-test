@@ -1,7 +1,7 @@
+import { fireEvent, render } from '@testing-library/react-native';
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
-import CategoryItem from './CategoryItem';
-import { Category } from '../../domain/entities/Category';
+import { Category } from '../../src/domain/entities/Category';
+import CategoryItem from '../../src/presentation/components/CategoryItem';
 
 describe('CategoryItem', () => {
   const mockCategory: Category = {

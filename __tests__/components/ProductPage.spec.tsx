@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react-native';
 import React from 'react';
-import { Product } from '../../domain/entities/Product';
-import { ProductPage } from './ProductPage';
+import { Product } from '../../src/domain/entities/Product';
+import { ProductPage } from '../../src/presentation/components/ProductPage';
 
 const mockProduct: Product = {
   id: 1,

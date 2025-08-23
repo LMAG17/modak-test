@@ -1,8 +1,8 @@
-import React from 'react';
 import { render } from '@testing-library/react-native';
-import RatingStars from './RatingStars';
+import React from 'react';
+import RatingStars from '../../src/presentation/components/RatingStars';
 
-jest.mock('./Icon', () => {
+jest.mock('../../src/presentation/components/Icon', () => {
   const React = require('react');
   const { Text } = require('react-native');
   return ({ name, testID }: { name: string; testID: string }) => (

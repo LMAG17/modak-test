@@ -1,9 +1,9 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react-native';
-import ProductDetailHeader from './ProductDetailHeader';
-import { Product } from './../../domain/entities/Product';
+import React from 'react';
+import { Product } from '../../src/domain/entities/Product';
+import ProductDetailHeader from '../../src/presentation/components/ProductDetailHeader';
 
-jest.mock('./Carousel', () => {
+jest.mock('../../src/presentation/components/Carousel', () => {
   const React = require('react');
   return {
     CustomCarousel: ({ data, renderItem }: any) => (

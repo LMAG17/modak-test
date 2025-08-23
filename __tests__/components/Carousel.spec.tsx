@@ -1,7 +1,7 @@
+import { fireEvent, render, screen } from '@testing-library/react-native';
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react-native';
-import { CustomCarousel } from './Carousel';
 import { Text } from 'react-native';
+import { CustomCarousel } from '../../src/presentation/components/Carousel';
 
 jest.mock('react-native-reanimated-carousel', () => {
   const React = require('react');

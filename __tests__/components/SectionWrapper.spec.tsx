@@ -1,16 +1,15 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react-native';
-import SectionWrapper from './SectionWrapper';
+import React from 'react';
 import { Text } from 'react-native';
+import SectionWrapper from '../../src/presentation/components/SectionWrapper';
 
-jest.mock('./Loading', () => {
+jest.mock('../../src/presentation/components/Loading', () => {
   const React = require('react');
   const { Text } = require('react-native');
   return function MockLoading() {
     return <Text>Loading...</Text>;
   };
 });
-
 
 describe('SectionWrapper', () => {
   it('shows loading state', () => {

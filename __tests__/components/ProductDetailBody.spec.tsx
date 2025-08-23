@@ -1,9 +1,9 @@
-import React from 'react';
 import { render } from '@testing-library/react-native';
-import ProductDetailBody from './ProductDetailBody';
-import { Product } from './../../domain/entities/Product';
+import React from 'react';
+import { Product } from '../../src/domain/entities/Product';
+import ProductDetailBody from '../../src/presentation/components/ProductDetailBody';
 
-jest.mock('./Icon', () => {
+jest.mock('../../src/presentation/components/Icon', () => {
   const React = require('react');
   const { Text } = require('react-native');
   return ({ name }: { name: string }) => <Text>{name}</Text>;

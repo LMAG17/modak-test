@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native';
 import React from 'react';
-import Loading from './Loading';
+import Loading from '../../src/presentation/components/Loading';
 
 describe('Loading', () => {
   it('renders correctly', () => {

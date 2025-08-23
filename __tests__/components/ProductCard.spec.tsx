@@ -1,9 +1,9 @@
+import { fireEvent, render } from '@testing-library/react-native';
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
-import ProductCard from './ProductCard';
-import { Product } from './../../domain/entities/Product';
+import { Product } from '../../src/domain/entities/Product';
+import ProductCard from '../../src/presentation/components/ProductCard';
 
-jest.mock('./Icon', () => {
+jest.mock('../../src/presentation/components/Icon', () => {
   const React = require('react');
   const { Text } = require('react-native');
   return ({ name }: { name: string }) => <Text>{name}</Text>;
@@ -43,5 +43,4 @@ describe('ProductCard', () => {
     fireEvent.press(getByTestId('product-card'));
     expect(onPressMock).toHaveBeenCalled();
   });
-  
 });

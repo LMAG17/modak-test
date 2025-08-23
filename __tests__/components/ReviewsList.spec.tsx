@@ -1,7 +1,7 @@
-import React from 'react';
 import { render } from '@testing-library/react-native';
-import { Product } from '../../domain/entities/Product';
-import ReviewsList from './ReviewsList';
+import React from 'react';
+import { Product } from '../../src/domain/entities/Product';
+import ReviewsList from '../../src/presentation/components/ReviewsList';
 
 const makeProduct = (reviews: any[] = []): Product => ({
   id: 1,
