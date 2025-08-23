@@ -46,4 +46,12 @@ describe('ProductItem', () => {
 
     expect(onPressMock).toHaveBeenCalledTimes(1);
   });
+
+  it('renders description instead brand when brand is not available', () => {
+    const productWithoutBrand = { ...mockProduct, brand: undefined };
+    const { getByText } = render(
+      <ProductItem product={productWithoutBrand as unknown as Product} />,
+    );
+    expect(getByText('Latest iPhone model')).toBeTruthy();
+  });
 });

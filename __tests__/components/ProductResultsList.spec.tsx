@@ -79,4 +79,25 @@ describe('ProductResultsList', () => {
     const { toJSON } = render(<ProductResultsList />);
     expect(toJSON()).toBeTruthy();
   });
+
+  it('displays the correct number of results in the header', () => {
+    const { getByText } = render(
+      <ProductResultsList products={mockProducts} />,
+    );
+    expect(getByText('Resultados encontrados (2)')).toBeTruthy();
+  });
+
+  it('displays the correct sorting option in the header', () => {
+    const { getByText } = render(
+      <ProductResultsList products={mockProducts} />,
+    );
+    expect(getByText('Ordenar por')).toBeTruthy();
+  });
+
+  it('displays the correct sorting option in the header with a value', () => {
+    const { getByText } = render(
+      <ProductResultsList products={mockProducts} sort={"price-asc"} />,
+    );
+    expect(getByText('Mayor precio')).toBeTruthy();
+  });
 });

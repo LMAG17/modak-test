@@ -33,4 +33,11 @@ describe('CategoryItem', () => {
       fireEvent.press(getByText('Technology'));
     }).not.toThrow();
   });
+
+  it('adds the selected style', () => {
+    const { getByText } = render(
+      <CategoryItem category={mockCategory} isSelected={true} />,
+    );
+    expect(getByText('Technology')).toHaveStyle({ fontWeight: '500' });
+  });
 });

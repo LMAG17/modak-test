@@ -7,29 +7,15 @@ import {
   View,
 } from 'react-native';
 import { Product } from '../../domain/entities/Product';
-import { ProductItem } from './ProductItem';
+import { sortToString } from '../utils/sortOptionToString';
 import { SortOption } from './FilterModal';
+import { ProductItem } from './ProductItem';
 
 type Props = {
   products?: Product[];
   onPress?: (id: number) => void;
   sort?: SortOption | null;
   onSortPress?: () => void;
-};
-
-const sortToString = (sortValue: SortOption) => {
-  switch (sortValue) {
-    case 'price-asc':
-      return 'Mayor precio';
-    case 'price-desc':
-      return 'Menor precio';
-    case 'rating-asc':
-      return 'Popular';
-    case 'rating-desc':
-      return 'Menos popular';
-    default:
-      return 'Ordenar por';
-  }
 };
 
 export default function ProductResultsList({
