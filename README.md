@@ -75,6 +75,37 @@ The app follows a **Domain Driven Design (DDD) and Clean Architecture** approach
 
 ---
 
+## Deep Links
+
+**Español:**  
+La aplicación soporta **deeplinks** para abrir productos directamente desde la URL:  
+
+- **iOS:**  
+  ```bash
+  xcrun simctl openurl booted "myapp://product/22"
+  ```
+
+- **Android:**  
+  ```bash
+  adb shell am start -W -a android.intent.action.VIEW -d "myapp://product/20" com.modak
+  ```
+
+**English:**  
+The app supports **deeplinks** to open products directly from a URL:  
+
+- **iOS:**  
+  ```bash
+  xcrun simctl openurl booted "myapp://product/22"
+  ```
+
+- **Android:**  
+  ```bash
+  adb shell am start -W -a android.intent.action.VIEW -d "myapp://product/20" com.modak
+  ```
+
+---
+
+
 ## Pruebas / Testing
 
 **Español:**
