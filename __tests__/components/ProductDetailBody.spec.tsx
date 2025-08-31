@@ -34,13 +34,20 @@ const mockProduct: Product = {
 
 describe('ProductDetailBody', () => {
   it('renders the product details correctly', () => {
-    const { getByText } = render(<ProductDetailBody product={mockProduct} />);
+    const { getByText } = render(
+      <ProductDetailBody
+        product={mockProduct}
+        isAlreadyInCart={false}
+        onAddToCart={jest.fn}
+        onRemoveFromCart={jest.fn}
+      />,
+    );
 
     expect(getByText('Apple')).toBeTruthy();
 
     expect(getByText('iPhone 15 Pro')).toBeTruthy();
 
-    expect(getByText('$1200')).toBeTruthy();
+    expect(getByText('$1,200.00')).toBeTruthy();
 
     expect(getByText(/4.8/)).toBeTruthy();
     expect(getByText(/\(1 reviews\)/)).toBeTruthy();

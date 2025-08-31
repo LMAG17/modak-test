@@ -1,13 +1,14 @@
 import { StyleSheet, View } from 'react-native';
 import { Product } from '../../domain/entities/Product';
-import { ProductItem } from './ProductItem';
+import ProductItem from './ProductItem';
+import { memo } from 'react';
 
 type ProductPageProps = {
   items: Product[];
   onPress?: (id: number) => void;
 };
 
-export const ProductPage = ({ items, onPress }: ProductPageProps) => {
+function ProductPage({ items, onPress }: ProductPageProps) {
   return (
     <View style={styles.page}>
       {items.map(product => (
@@ -19,7 +20,9 @@ export const ProductPage = ({ items, onPress }: ProductPageProps) => {
       ))}
     </View>
   );
-};
+}
+
+export default memo(ProductPage);
 
 const styles = StyleSheet.create({
   page: {

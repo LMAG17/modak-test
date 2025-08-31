@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import CartIcon from './CartIcon';
 import Icon from './Icon';
 
 type Props = {
@@ -11,20 +12,23 @@ export default function HeaderWithSearch({ onSearch, isLoading }: Props) {
   return (
     <View style={styles.header}>
       <Text style={styles.title}>Modak Test</Text>
-      <View style={styles.searchContainer}>
-        <Icon
-          family="Ionicons"
-          name={isLoading ? 'loader' : 'search'}
-          size={20}
-          color="#888"
-          style={styles.icon}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Buscar productos..."
-          placeholderTextColor="#aaa"
-          onChangeText={text => onSearch(text)}
-        />
+      <View style={styles.container}>
+        <View style={styles.searchContainer}>
+          <Icon
+            family="Ionicons"
+            name={isLoading ? 'loader' : 'search'}
+            size={20}
+            color="#888"
+            style={styles.icon}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Buscar productos..."
+            placeholderTextColor="#aaa"
+            onChangeText={text => onSearch(text)}
+          />
+        </View>
+        <CartIcon style={styles.cartIcon} />
       </View>
     </View>
   );
@@ -43,7 +47,14 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     color: '#333',
   },
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
+  },
   searchContainer: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     height: 40,
@@ -62,5 +73,10 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     color: '#333',
+  },
+  cartIcon: {
+    backgroundColor: '#FDFDFD',
+    borderWidth: 1,
+    borderColor: '#F5F6F5',
   },
 });

@@ -1,20 +1,30 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { Product } from '../../domain/entities/Product';
+import BuyButtons from './BuyButtons';
 import Icon from './Icon';
+import { currency } from '../utils/currency';
 
 type Props = {
   product: Product;
+  isAlreadyInCart: boolean;
+  onAddToCart: (quantity: number) => void;
+  onRemoveFromCart: () => void;
 };
 
-export default function ProductDetailBody({ product }: Props) {
+export default function ProductDetailBody({
+  product,
+  isAlreadyInCart,
+  onAddToCart,
+  onRemoveFromCart,
+}: Props) {
   return (
     <View style={styles.infoContainer}>
       <Text style={styles.brand}>{product.brand}</Text>
 
       <View style={styles.mainInformationContainer}>
         <Text style={styles.title}>{product.title}</Text>
-        <Text style={styles.price}>${product.price}</Text>
+        <Text style={styles.price}>{currency(product.price)}</Text>
       </View>
 
       <View style={styles.rateContainer}>
@@ -26,6 +36,15 @@ export default function ProductDetailBody({ product }: Props) {
       </View>
 
       <Text style={styles.description}>{product.description}</Text>
+
+      <BuyButtons
+        product={product}
+        onAddToCart={onAddToCart}
+        onRemoveFromCart={onRemoveFromCart}
+        isAlreadyInCart={isAlreadyInCart}
+      />
+
+      <View style={styles.separator} />
     </View>
   );
 }
@@ -73,5 +92,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#555',
     lineHeight: 20,
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#eee',
+    marginVertical: 12,
   },
 });

@@ -6,13 +6,9 @@ import ProductResultsList from '../../src/presentation/components/ProductResults
 jest.mock('../../src/presentation/components/ProductItem', () => {
   const React = require('react');
   const { Button } = require('react-native');
-  return {
-    ProductItem: ({ product, onPress }: any) => (
-      <>
-        <Button onPress={onPress} title={product.title} />
-      </>
-    ),
-  };
+  return jest.fn(({ product, onPress }: any) => (
+    <Button onPress={() => onPress(product.id)} title={product.title} />
+  ));
 });
 
 const mockProducts: Product[] = [
@@ -96,7 +92,7 @@ describe('ProductResultsList', () => {
 
   it('displays the correct sorting option in the header with a value', () => {
     const { getByText } = render(
-      <ProductResultsList products={mockProducts} sort={"price-asc"} />,
+      <ProductResultsList products={mockProducts} sort={'price-asc'} />,
     );
     expect(getByText('Mayor precio')).toBeTruthy();
   });

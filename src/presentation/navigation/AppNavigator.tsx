@@ -1,16 +1,19 @@
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import React from 'react';
-import HomeScreen from '../screens/HomeScreen';
-import ProductDetailScreen from '../screens/ProductDetailScreen';
 import {
   createStackNavigator,
   StackNavigationProp,
 } from '@react-navigation/stack';
+import React from 'react';
+import CartIcon from '../components/CartIcon';
+import CartScreen from '../screens/CartScreen';
+import HomeScreen from '../screens/HomeScreen';
+import ProductDetailScreen from '../screens/ProductDetailScreen';
 import { linking } from './linking';
 
 export type RootStackParamList = {
   Home: undefined;
   Detail: { id: number };
+  Cart: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -27,7 +30,15 @@ const AppNavigator = () => {
         <Stack.Screen
           name="Detail"
           component={ProductDetailScreen}
-          options={{ title: '' }}
+          options={{
+            title: '',
+            headerRight: () => <CartIcon style={{ marginRight: 16 }} />,
+          }}
+        />
+        <Stack.Screen
+          name="Cart"
+          component={CartScreen}
+          options={{ title: 'Mi carrito' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

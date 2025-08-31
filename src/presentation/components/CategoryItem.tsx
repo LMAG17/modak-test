@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Category } from '../../domain/entities/Category';
 
@@ -8,7 +8,7 @@ type Props = {
   isSelected?: boolean;
 };
 
-export default function CategoryItem({ category, onPress, isSelected }: Props) {
+function CategoryItem({ category, onPress, isSelected }: Props) {
   return (
     <TouchableOpacity
       style={[styles.container, isSelected && styles.selectedContainer]}
@@ -19,6 +19,8 @@ export default function CategoryItem({ category, onPress, isSelected }: Props) {
     </TouchableOpacity>
   );
 }
+
+export default memo(CategoryItem);
 
 const styles = StyleSheet.create({
   container: {

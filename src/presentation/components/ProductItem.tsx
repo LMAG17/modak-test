@@ -7,8 +7,9 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import React from 'react';
+import React, { memo } from 'react';
 import { Product } from '../../domain/entities/Product';
+import { currency } from '../utils/currency';
 
 type Props = {
   product: Product;
@@ -16,7 +17,7 @@ type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
-export function ProductItem({ product, onPress, style }: Props) {
+function ProductItem({ product, onPress, style }: Props) {
   const discountPercentage = Math.floor(product.discountPercentage);
   return (
     <TouchableOpacity
@@ -43,11 +44,13 @@ export function ProductItem({ product, onPress, style }: Props) {
             <Text style={styles.discountText}>{discountPercentage}% OFF</Text>
           </View>
         )}
-        <Text style={styles.priceText}>${product.price}</Text>
+        <Text style={styles.priceText}>{currency(product.price)}</Text>
       </View>
     </TouchableOpacity>
   );
 }
+
+export default memo(ProductItem);
 
 const styles = StyleSheet.create({
   card: {

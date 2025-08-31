@@ -9,7 +9,7 @@ import {
 import { Product } from '../../domain/entities/Product';
 import { sortToString } from '../utils/sortOptionToString';
 import { SortOption } from './FilterModal';
-import { ProductItem } from './ProductItem';
+import ProductItem from './ProductItem';
 
 type Props = {
   products?: Product[];
@@ -27,6 +27,7 @@ export default function ProductResultsList({
   return (
     <View style={styles.container}>
       <FlatList
+        showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <View style={styles.header}>
             <Text style={styles.headerText}>

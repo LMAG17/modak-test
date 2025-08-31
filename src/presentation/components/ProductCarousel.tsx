@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Product } from '../../domain/entities/Product';
 import { CustomCarousel } from './Carousel';
-import { ProductPage } from './ProductPage';
+import ProductPage from './ProductPage';
 
 type Props = {
   products: Product[] | undefined;

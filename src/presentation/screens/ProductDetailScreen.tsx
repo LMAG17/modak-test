@@ -1,5 +1,5 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
-import React, { memo, useCallback, useLayoutEffect } from 'react';
+import React, { memo, useCallback, useLayoutEffect, useMemo } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text } from 'react-native';
 import DetailLoading from '../components/DetailLoading';
 import Error from '../components/Error';
@@ -15,14 +15,19 @@ import {
   RootStackParamList,
   useAppNavigation,
 } from '../navigation/AppNavigator';
+import { useAppDispatch, useAppSelector } from '../store';
+import { addToCart, removeFromCart } from '../store/slices/cartSlice';
 
 type DetailRouteProp = RouteProp<RootStackParamList, 'Detail'>;
 
 const ProductDetailScreen = () => {
+  const { items } = useAppSelector(state => state.cart);
+  const dispatch = useAppDispatch();
   const navigation = useAppNavigation();
   const {
     params: { id },
   } = useRoute<DetailRouteProp>();
+
   const {
     product,
     isLoading,
@@ -37,12 +42,29 @@ const ProductDetailScreen = () => {
     if (product?.title) navigation.setOptions({ title: product.title });
   }, [product?.title, navigation]);
 
+  const isAlreadyInCart = useMemo(
+    () => items.some(item => item.product.id === product?.id),
+    [items, product?.id],
+  );
+
   const handlePressProduct = useCallback(
     (id: number) => navigation.push('Detail', { id }),
     [navigation],
   );
 
+  const onAddToCart = useCallback(
+    (quantity: number) => {
+      dispatch(addToCart({ product: product!, quantity }));
+    },
+    [dispatch, product],
+  );
+
+  const onRemoveFromCart = useCallback(() => {
+    dispatch(removeFromCart(product!.id));
+  }, [dispatch, product]);
+
   if (isLoading) return <DetailLoading />;
+
   if (error)
     return (
       <Error
@@ -50,13 +72,19 @@ const ProductDetailScreen = () => {
         onRefresh={refetch}
       />
     );
+
   if (!product) return <Text style={styles.error}>Producto no encontrado</Text>;
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <ProductDetailHeader product={product} />
-        <ProductDetailBody product={product} />
+        <ProductDetailBody
+          product={product}
+          onAddToCart={onAddToCart}
+          isAlreadyInCart={isAlreadyInCart}
+          onRemoveFromCart={onRemoveFromCart}
+        />
         <ProductDetailDiscountBadge product={product} />
 
         <SectionWrapper title="Opiniones">

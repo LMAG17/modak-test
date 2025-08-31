@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Product } from '../../domain/entities/Product';
+import { currency } from '../utils/currency';
 
 interface Props {
   product: Product;
@@ -31,14 +32,14 @@ const ProductCard: React.FC<Props> = ({ product, onPress }) => {
           </Text>
         </View>
         <View style={styles.priceContainer}>
-          <Text style={styles.price}>${product.price}</Text>
+          <Text style={styles.price}>{currency(product.price)}</Text>
         </View>
       </View>
     </TouchableOpacity>
   );
 };
 
-export default ProductCard;
+export default memo(ProductCard);
 
 const styles = StyleSheet.create({
   card: {

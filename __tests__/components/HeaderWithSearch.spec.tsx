@@ -8,6 +8,12 @@ jest.mock('../../src/presentation/components/Icon', () => {
   return ({ name }: { name: string }) => <Text>{name}</Text>;
 });
 
+jest.mock('../../src/presentation/components/CartIcon', () => {
+  const React = require('react');
+  const { View } = require('react-native');
+  return () => <View testID="CartIcon" />;
+});
+
 describe('HeaderWithSearch', () => {
   it('renders the title correctly', () => {
     render(<HeaderWithSearch onSearch={() => {}} isLoading={false} />);

@@ -24,7 +24,7 @@ describe('ProductCard', () => {
 
     expect(getByText('Apple')).toBeTruthy();
     expect(getByText('iPhone 15')).toBeTruthy();
-    expect(getByText('$1200')).toBeTruthy();
+    expect(getByText('$1,200.00')).toBeTruthy();
     expect(getByText('10% OFF')).toBeTruthy();
   });
 

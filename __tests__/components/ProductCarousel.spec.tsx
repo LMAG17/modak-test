@@ -20,11 +20,9 @@ jest.mock('../../src/presentation/components/Carousel', () => {
 jest.mock('../../src/presentation/components/ProductPage', () => {
   const React = require('react');
   const { Text } = require('react-native');
-  return {
-    ProductPage: ({ items, onPress }: any) => {
-      return <Text onPress={() => onPress?.(items.id)}>{items.name}</Text>;
-    },
-  };
+  return jest.fn(({ items, onPress }: any) => {
+    return <Text onPress={() => onPress?.(items.id)}>{items.name}</Text>;
+  });
 });
 
 describe('ProductCarousel', () => {
